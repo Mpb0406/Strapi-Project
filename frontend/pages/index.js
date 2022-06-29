@@ -1,7 +1,16 @@
 import Head from "next/head";
 import Link from "next/link";
+import { useQuery } from "urql";
+import { PRODUCT_QUERY } from "../lib/query";
 
 export default function Home() {
+  // Fetch from graphql
+  const [results] = useQuery({ query: PRODUCT_QUERY });
+  const { fetching, error, data } = results;
+
+  if (fetching) return <p>Loading...</p>;
+  if (error) return <p>Oh no... {error.message}</p>;
+  console.log(data);
   return (
     <div>
       <Head>
