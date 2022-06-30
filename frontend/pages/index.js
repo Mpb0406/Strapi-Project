@@ -2,6 +2,7 @@ import Head from "next/head";
 import Link from "next/link";
 import { useQuery } from "urql";
 import { PRODUCT_QUERY } from "../lib/query";
+import Products from "../components/Products";
 
 export default function Home() {
   // Fetch from graphql
@@ -10,7 +11,7 @@ export default function Home() {
 
   if (fetching) return <p>Loading...</p>;
   if (error) return <p>Oh no... {error.message}</p>;
-  console.log(data);
+  const products = data.products.data;
   return (
     <div>
       <Head>
@@ -21,7 +22,9 @@ export default function Home() {
 
       <main>
         <h1>My Next App</h1>
-        <Link href={"/about"}>About</Link>
+        {products.map((product) => (
+          <Products key={product.attributes.slug} product={product} />
+        ))}
       </main>
     </div>
   );
