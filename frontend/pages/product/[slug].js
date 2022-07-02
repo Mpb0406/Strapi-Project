@@ -8,8 +8,11 @@ import {
   Buy,
 } from "../../styles/ProductDetails";
 import { AiFillPlusCircle, AiFillMinusCircle } from "react-icons/ai";
+import { useStateContext } from "../../lib/context";
 
-export default function ProductDetails() {
+const ProductDetails = () => {
+  const { qty } = useStateContext();
+  console.log(qty);
   const { query } = useRouter();
 
   // Fetch Data
@@ -26,8 +29,6 @@ export default function ProductDetails() {
   // Extract Data
   const { title, description, image } = data.products.data[0].attributes;
 
-  console.log(title);
-
   return (
     <DetailsStyle>
       <img src={image.data.attributes.formats.thumbnail.url} alt="" />
@@ -36,12 +37,18 @@ export default function ProductDetails() {
         <p>{description}</p>
         <Quantity>
           <span>Quantity</span>
-          <AiFillMinusCircle />
+          <button>
+            <AiFillMinusCircle />
+          </button>
           <p>0</p>
-          <AiFillPlusCircle />
+          <button>
+            <AiFillPlusCircle />
+          </button>
         </Quantity>
         <Buy>Add to Cart</Buy>
       </ProductInfo>
     </DetailsStyle>
   );
-}
+};
+
+export default ProductDetails;
