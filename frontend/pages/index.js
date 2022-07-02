@@ -1,5 +1,4 @@
 import Head from "next/head";
-import Link from "next/link";
 import { useQuery } from "urql";
 import { PRODUCT_QUERY } from "../lib/query";
 import Products from "../components/Products";
@@ -22,7 +21,6 @@ export default function Home() {
       </Head>
 
       <main>
-        <h1>My Next App</h1>
         <Gallery>
           {products.map((product) => (
             <Products key={product.attributes.slug} product={product} />
