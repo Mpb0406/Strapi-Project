@@ -6,11 +6,12 @@ import {
   CardInfo,
   EmptyStyle,
 } from "../styles/CartStyles";
+import { Quantity } from "../styles/ProductDetails";
 import { FaShoppingCart } from "react-icons/fa";
 import { AiFillMinusCircle, AiFillPlusCircle } from "react-icons/ai";
 
 const Cart = () => {
-  const { cartItems, setShowCart } = useStateContext();
+  const { cartItems, setShowCart, onAdd, onRemove } = useStateContext();
   return (
     <CartWrapper onClick={() => setShowCart(false)}>
       <CartStyle onClick={(e) => e.stopPropagation()}>
@@ -22,7 +23,7 @@ const Cart = () => {
         )}
         {cartItems.length >= 1 &&
           cartItems.map((item) => (
-            <Card>
+            <Card key={item.slug}>
               <img
                 src={item.image.data.attributes.formats.thumbnail.url}
                 alt={item.title}
@@ -30,16 +31,16 @@ const Cart = () => {
               <CardInfo>
                 <h3>{item.title}</h3>
                 <h3>{item.price}</h3>
-                <div>
+                <Quantity>
                   <span>Quantity</span>
                   <button>
-                    <AiFillMinusCircle />
+                    <AiFillMinusCircle onClick={() => onRemove(item)} />
                   </button>
                   <p>{item.quantity}</p>
                   <button>
-                    <AiFillPlusCircle />
+                    <AiFillPlusCircle onClick={() => onAdd(item, 1)} />
                   </button>
-                </div>
+                </Quantity>
               </CardInfo>
             </Card>
           ))}

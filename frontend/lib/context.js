@@ -38,6 +38,22 @@ export const StateContext = ({ children }) => {
     }
   };
 
+  // Remove Product from Cart
+  const onRemove = (product) => {
+    const exists = cartItems.find((item) => item.slug === product.slug);
+    if (exists.quantity === 1) {
+      setCartItems(cartItems.filter((item) => item.slug !== product.slug));
+    } else {
+      setCartItems(
+        cartItems.map((item) =>
+          item.slug === product.slug
+            ? { ...exists, quantity: exists.quantity - 1 }
+            : item
+        )
+      );
+    }
+  };
+
   return (
     <ShopContext.Provider
       value={{
@@ -48,6 +64,7 @@ export const StateContext = ({ children }) => {
         setShowCart,
         cartItems,
         onAdd,
+        onRemove,
       }}>
       {children}
     </ShopContext.Provider>
