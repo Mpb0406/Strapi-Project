@@ -49,7 +49,7 @@ const Cart = () => {
             animate={{
               opacity: 1,
               scale: 1,
-              transition: { delay: 0.1, duration: 0.2 },
+              transition: { delay: 0.2, duration: 0.3 },
             }}>
             <h1>No items in cart...</h1>
             <FaShoppingCart />
